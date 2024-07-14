@@ -59,8 +59,10 @@ def main():
     my_board.reduce_groups(solution)
 
     # # FOR TESTING ONLY / DELETE ME
-    my_list = solution.list_of_lists_by_location[42][2]
-    print(my_list)
+    for location in range(0, 81):
+        for array in range(0, 3):
+            print(f'Location {location}, Array {array}: {solution.list_of_lists_by_location[location][array]}')
+    print()
     # display.print_full_board_array_view(my_board)
     # # END OF TESTING CODE
 
