@@ -110,30 +110,48 @@ class Solution:
                        7, 7, 7, 8, 8, 8, 9, 9, 9,
                        7, 7, 7, 8, 8, 8, 9, 9, 9]
 
-            target_array = self.sol_array[key[location - 1] - 1]
+            target_array = self.sol_array[key[location] - 1]
             return target_array
 
-        for location in range(1, 82):
+        for location in range(0, 81):
             self.list_of_lists_by_location.append([])
 
         # for each row, populate the list of lists with the correct row array based on cell location
-        for location in range(1, 82):
+        for location in range(0, 81):
             row = pick_array_by_location(location, 'row')
-            self.list_of_lists_by_location[location - 1].append(row)
+            self.list_of_lists_by_location[location].append(row)
 
         # for each column, populate the list of lists with the correct column array based on cell location
         self.rows_to_cols_and_back()
-        for location in range(1, 82):
+        for location in range(0, 81):
             col = pick_array_by_location(location, 'col')
-            self.list_of_lists_by_location[location - 1].append(col)
+            self.list_of_lists_by_location[location].append(col)
         self.rows_to_cols_and_back()
 
         # for each group, populate the list of lists with the correct group array based on cell location
         self.rows_to_groups_and_back()
-        for location in range(1, 82):
+        for location in range(0, 81):
             group = pick_array_by_location(location, 'group')
-            self.list_of_lists_by_location[location - 1].append(group)
+            self.list_of_lists_by_location[location].append(group)
         self.rows_to_groups_and_back()
+
+        # finally, format the list of lists as nine lists (groups) of nine items (list of three lists each)
+        reformatted_list_of_lists = []
+        for group_number in range(0, 9):
+            reformatted_list_of_lists.append([])
+            for cell_number in range(0, 9):
+                location_key = [[ 1,  2,  3, 10, 11, 12, 19, 20, 21],
+                                [ 4,  5,  6, 13, 14, 15, 22, 23, 24],
+                                [ 7,  8,  9, 16, 17, 18, 25, 26, 27],
+                                [28, 29, 30, 37, 38, 39, 46, 47, 48],
+                                [31, 32, 33, 40, 41, 42, 49, 50, 51],
+                                [34, 35, 36, 43, 44, 45, 52, 53, 54],
+                                [55, 56, 57, 64, 65, 66, 73, 74, 75],
+                                [58, 59, 60, 67, 68, 69, 76, 77, 78],
+                                [61, 61, 63, 70, 71, 72, 79, 80, 81]]
+                location = (location_key[group_number][cell_number]) - 1
+                reformatted_list_of_lists[group_number].append(self.list_of_lists_by_location[location])
+        self.list_of_lists_by_location = reformatted_list_of_lists
 
     def __repr__(self):
         print(f'Solution({self.sol_array}')

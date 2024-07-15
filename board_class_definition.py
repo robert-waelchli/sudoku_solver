@@ -45,13 +45,29 @@ class Board:
         return group
 
     # method applies a given solution object to the game board, cell-by-cell
+    # def apply_solution(self, solution: Solution):
+    #     solution.rows_to_groups_and_back()
+    #     for group in range(1, 10):
+    #         for cell in range(1, 10):
+    #             if solution.sol_array[group - 1][cell - 1] != 0:
+    #                 self.return_group(group).return_cell(cell).solve_cell(solution.sol_array[group - 1][cell - 1])
+    #     solution.rows_to_groups_and_back()
+
+    # method applies a given solution object to the game board, cell-by-cell
     def apply_solution(self, solution: Solution):
-        solution.rows_to_groups_and_back()
+        array_type = ['row', 'col', 'group']
         for group in range(1, 10):
             for cell in range(1, 10):
-                if solution.sol_array[group - 1][cell - 1] != 0:
-                    self.return_group(group).return_cell(cell).solve_cell(solution.sol_array[group - 1][cell - 1])
-        solution.rows_to_groups_and_back()
+                for number in range(0, 3):
+                    cell_to_modify = self.return_group(group).return_cell(cell)
+                    array_string = array_type[number]
+
+                    # solve the cell if the value is already known
+                    if solution.sol_array[group - 1][cell - 1] != 0:
+                        cell_to_modify.solve_cell(solution.sol_array[group - 1][cell - 1])
+                    else:
+                        cell_to_modify.eliminate_cell_vals(solution.list_of_lists_by_location[group - 1][cell - 1]
+                                                           [number], array_string)
 
     # method by which pencil marks are updated, row-by-row
     def reduce_rows(self, solution: Solution):
