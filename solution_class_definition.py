@@ -10,30 +10,8 @@ class Solution:
         self.define_solution_from_string(input_sol)
         self.define_list_of_lists()
 
-    # method by which rows are transposed to columns and back
-    def rows_to_cols_and_back(self):
-        [aa, ba, ca, da, ea, fa, ga, ha, ja] = self.sol_array[0]
-        [ab, bb, cb, db, eb, fb, gb, hb, jb] = self.sol_array[1]
-        [ac, bc, cc, dc, ec, fc, gc, hc, jc] = self.sol_array[2]
-        [ad, bd, cd, dd, ed, fd, gd, hd, jd] = self.sol_array[3]
-        [ae, be, ce, de, ee, fe, ge, he, je] = self.sol_array[4]
-        [af, bf, cf, df, ef, ff, gf, hf, jf] = self.sol_array[5]
-        [ag, bg, cg, dg, eg, fg, gg, hg, jg] = self.sol_array[6]
-        [ah, bh, ch, dh, eh, fh, gh, hh, jh] = self.sol_array[7]
-        [aj, bj, cj, dj, ej, fj, gj, hj, jj] = self.sol_array[8]
-
-        self.sol_array[0] = [aa, ab, ac, ad, ae, af, ag, ah, aj]
-        self.sol_array[1] = [ba, bb, bc, bd, be, bf, bg, bh, bj]
-        self.sol_array[2] = [ca, cb, cc, cd, ce, cf, cg, ch, cj]
-        self.sol_array[3] = [da, db, dc, dd, de, df, dg, dh, dj]
-        self.sol_array[4] = [ea, eb, ec, ed, ee, ef, eg, eh, ej]
-        self.sol_array[5] = [fa, fb, fc, fd, fe, ff, fg, fh, fj]
-        self.sol_array[6] = [ga, gb, gc, gd, ge, gf, gg, gh, gj]
-        self.sol_array[7] = [ha, hb, hc, hd, he, hf, hg, hh, hj]
-        self.sol_array[8] = [ja, jb, jc, jd, je, jf, jg, jh, jj]
-
-    # method by which rows are transposed to groups and back
-    def rows_to_groups_and_back(self):
+    # method returns a solution array but formatted by rows (as opposed to groups)
+    def solution_array_row_format(self):
         [aa, ab, ac, ba, bb, bc, ca, cb, cc] = self.sol_array[0]
         [ad, ae, af, bd, be, bf, cd, ce, cf] = self.sol_array[1]
         [ag, ah, aj, bg, bh, bj, cg, ch, cj] = self.sol_array[2]
@@ -44,18 +22,70 @@ class Solution:
         [gd, ge, gf, hd, he, hf, jd, je, jf] = self.sol_array[7]
         [gg, gh, gj, hg, hh, hj, jg, jh, jj] = self.sol_array[8]
 
-        self.sol_array[0] = [aa, ab, ac, ad, ae, af, ag, ah, aj]
-        self.sol_array[1] = [ba, bb, bc, bd, be, bf, bg, bh, bj]
-        self.sol_array[2] = [ca, cb, cc, cd, ce, cf, cg, ch, cj]
-        self.sol_array[3] = [da, db, dc, dd, de, df, dg, dh, dj]
-        self.sol_array[4] = [ea, eb, ec, ed, ee, ef, eg, eh, ej]
-        self.sol_array[5] = [fa, fb, fc, fd, fe, ff, fg, fh, fj]
-        self.sol_array[6] = [ga, gb, gc, gd, ge, gf, gg, gh, gj]
-        self.sol_array[7] = [ha, hb, hc, hd, he, hf, hg, hh, hj]
-        self.sol_array[8] = [ja, jb, jc, jd, je, jf, jg, jh, jj]
+        new_array = [[], [], [], [], [], [], [], [], []]
+
+        new_array[0] = [aa, ab, ac, ad, ae, af, ag, ah, aj]
+        new_array[1] = [ba, bb, bc, bd, be, bf, bg, bh, bj]
+        new_array[2] = [ca, cb, cc, cd, ce, cf, cg, ch, cj]
+        new_array[3] = [da, db, dc, dd, de, df, dg, dh, dj]
+        new_array[4] = [ea, eb, ec, ed, ee, ef, eg, eh, ej]
+        new_array[5] = [fa, fb, fc, fd, fe, ff, fg, fh, fj]
+        new_array[6] = [ga, gb, gc, gd, ge, gf, gg, gh, gj]
+        new_array[7] = [ha, hb, hc, hd, he, hf, hg, hh, hj]
+        new_array[8] = [ja, jb, jc, jd, je, jf, jg, jh, jj]
+
+        return new_array
+
+    # method returns a solution array but formatted by columns (as opposed to groups)
+    def solution_array_column_format(self):
+        [aa, ba, ca, ab, bb, cb, ac, bc, cc] = self.sol_array[0]
+        [da, ea, fa, db, eb, fb, dc, ec, fc] = self.sol_array[1]
+        [ga, ha, ja, gb, hb, jb, gc, hc, jc] = self.sol_array[2]
+        [ad, bd, cd, ae, be, ce, af, bf, cf] = self.sol_array[3]
+        [dd, ed, fd, de, ee, fe, df, ef, ff] = self.sol_array[4]
+        [gd, hd, jd, ge, he, je, gf, hf, jf] = self.sol_array[5]
+        [ag, bg, cg, ah, bh, ch, aj, bj, cj] = self.sol_array[6]
+        [dg, eg, fg, dh, eh, fh, dj, ej, fj] = self.sol_array[7]
+        [gg, hg, jg, gh, hh, jh, gj, hj, jj] = self.sol_array[8]
+
+        new_array = [[], [], [], [], [], [], [], [], []]
+
+        new_array[0] = [aa, ab, ac, ad, ae, af, ag, ah, aj]
+        new_array[1] = [ba, bb, bc, bd, be, bf, bg, bh, bj]
+        new_array[2] = [ca, cb, cc, cd, ce, cf, cg, ch, cj]
+        new_array[3] = [da, db, dc, dd, de, df, dg, dh, dj]
+        new_array[4] = [ea, eb, ec, ed, ee, ef, eg, eh, ej]
+        new_array[5] = [fa, fb, fc, fd, fe, ff, fg, fh, fj]
+        new_array[6] = [ga, gb, gc, gd, ge, gf, gg, gh, gj]
+        new_array[7] = [ha, hb, hc, hd, he, hf, hg, hh, hj]
+        new_array[8] = [ja, jb, jc, jd, je, jf, jg, jh, jj]
+
+        return new_array
 
     # method converts an input string solution into an array of arrays
     def define_solution_from_string(self, input_sol: str):
+        def rows_to_groups(sol_array):
+            [aa, ab, ac, ba, bb, bc, ca, cb, cc] = sol_array[0]
+            [ad, ae, af, bd, be, bf, cd, ce, cf] = sol_array[1]
+            [ag, ah, aj, bg, bh, bj, cg, ch, cj] = sol_array[2]
+            [da, db, dc, ea, eb, ec, fa, fb, fc] = sol_array[3]
+            [dd, de, df, ed, ee, ef, fd, fe, ff] = sol_array[4]
+            [dg, dh, dj, eg, eh, ej, fg, fh, fj] = sol_array[5]
+            [ga, gb, gc, ha, hb, hc, ja, jb, jc] = sol_array[6]
+            [gd, ge, gf, hd, he, hf, jd, je, jf] = sol_array[7]
+            [gg, gh, gj, hg, hh, hj, jg, jh, jj] = sol_array[8]
+
+            sol_array[0] = [aa, ab, ac, ad, ae, af, ag, ah, aj]
+            sol_array[1] = [ba, bb, bc, bd, be, bf, bg, bh, bj]
+            sol_array[2] = [ca, cb, cc, cd, ce, cf, cg, ch, cj]
+            sol_array[3] = [da, db, dc, dd, de, df, dg, dh, dj]
+            sol_array[4] = [ea, eb, ec, ed, ee, ef, eg, eh, ej]
+            sol_array[5] = [fa, fb, fc, fd, fe, ff, fg, fh, fj]
+            sol_array[6] = [ga, gb, gc, gd, ge, gf, gg, gh, gj]
+            sol_array[7] = [ha, hb, hc, hd, he, hf, hg, hh, hj]
+            sol_array[8] = [ja, jb, jc, jd, je, jf, jg, jh, jj]
+
+            return sol_array
 
         # start by removing all '+', '-', and '\n' characters
         input_sol = input_sol.replace('+', "")
@@ -74,84 +104,63 @@ class Solution:
             start_index = end_index
             end_index = end_index + 25
 
+        # put the solution in the format of 9 arrays where each array represents the groups--this is the default format
+        # for the solution array
+        self.sol_array = rows_to_groups(self.sol_array)
+
     # method populates a list of lists containing row
     def define_list_of_lists(self):
-        # this function picks the correct row, column, or group array from the solution array, based on the cell
+        # this function picks the correct row or column array from the solution array, based on the input cell
         # location, and assigns those values to a specific cell within the "list-of-lists"
-        def pick_array_by_location(location: int, format: str):
+        def pick_array_by_location(group: int, cell: int, format: str, solution_array: list):
             if format == 'row':
-                key = [1, 1, 1, 1, 1, 1, 1, 1, 1,
-                       2, 2, 2, 2, 2, 2, 2, 2, 2,
-                       3, 3, 3, 3, 3, 3, 3, 3, 3,
-                       4, 4, 4, 4, 4, 4, 4, 4, 4,
-                       5, 5, 5, 5, 5, 5, 5, 5, 5,
-                       6, 6, 6, 6, 6, 6, 6, 6, 6,
-                       7, 7, 7, 7, 7, 7, 7, 7, 7,
-                       8, 8, 8, 8, 8, 8, 8, 8, 8,
-                       9, 9, 9, 9, 9, 9, 9, 9, 9]
-            elif format == 'col':
-                key = [1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9,
-                       1, 2, 3, 4, 5, 6, 7, 8, 9]
+                key = [[1, 1, 1, 2, 2, 2, 3, 3, 3],
+                       [1, 1, 1, 2, 2, 2, 3, 3, 3],
+                       [1, 1, 1, 2, 2, 2, 3, 3, 3],
+                       [4, 4, 4, 5, 5, 5, 6, 6, 6],
+                       [4, 4, 4, 5, 5, 5, 6, 6, 6],
+                       [4, 4, 4, 5, 5, 5, 6, 6, 6],
+                       [7, 7, 7, 8, 8, 8, 9, 9, 9],
+                       [7, 7, 7, 8, 8, 8, 9, 9, 9],
+                       [7, 7, 7, 8, 8, 8, 9, 9, 9]]
             else:
-                key = [1, 1, 1, 2, 2, 2, 3, 3, 3,
-                       1, 1, 1, 2, 2, 2, 3, 3, 3,
-                       1, 1, 1, 2, 2, 2, 3, 3, 3,
-                       4, 4, 4, 5, 5, 5, 6, 6, 6,
-                       4, 4, 4, 5, 5, 5, 6, 6, 6,
-                       4, 4, 4, 5, 5, 5, 6, 6, 6,
-                       7, 7, 7, 8, 8, 8, 9, 9, 9,
-                       7, 7, 7, 8, 8, 8, 9, 9, 9,
-                       7, 7, 7, 8, 8, 8, 9, 9, 9]
+                key = [[1, 2, 3, 1, 2, 3, 1, 2, 3],
+                       [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                       [7, 8, 9, 7, 8, 9, 7, 8, 9],
+                       [1, 2, 3, 1, 2, 3, 1, 2, 3],
+                       [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                       [7, 8, 9, 7, 8, 9, 7, 8, 9],
+                       [1, 2, 3, 1, 2, 3, 1, 2, 3],
+                       [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                       [7, 8, 9, 7, 8, 9, 7, 8, 9]]
 
-            target_array = self.sol_array[key[location] - 1]
+            target_array = solution_array[key[group][cell] - 1]
             return target_array
 
-        for location in range(0, 81):
+        # instantiate a list at each of 81 locations (9 cell locations in 9 group arrays)
+        for group in range(0, 9):
             self.list_of_lists_by_location.append([])
+            for cell in range(0, 9):
+                self.list_of_lists_by_location[group].append([])
 
-        # for each row, populate the list of lists with the correct row array based on cell location
-        for location in range(0, 81):
-            row = pick_array_by_location(location, 'row')
-            self.list_of_lists_by_location[location].append(row)
+        # for each cell, populate the list of lists with the correct group array based on cell location
+        for group in range(0, 9):
+            for cell in range(0, 9):
+                self.list_of_lists_by_location[group][cell].append(self.sol_array[group])
 
-        # for each column, populate the list of lists with the correct column array based on cell location
-        self.rows_to_cols_and_back()
-        for location in range(0, 81):
-            col = pick_array_by_location(location, 'col')
-            self.list_of_lists_by_location[location].append(col)
-        self.rows_to_cols_and_back()
+        # for each cell, populate the list of lists with the correct row array based on cell location
+        solution_row_array = self.solution_array_row_format()
+        for group in range(0, 9):
+            for cell in range(0, 9):
+                row_array = pick_array_by_location(group, cell, 'row', solution_row_array)
+                self.list_of_lists_by_location[group][cell].append(row_array)
 
-        # for each group, populate the list of lists with the correct group array based on cell location
-        self.rows_to_groups_and_back()
-        for location in range(0, 81):
-            group = pick_array_by_location(location, 'group')
-            self.list_of_lists_by_location[location].append(group)
-        self.rows_to_groups_and_back()
-
-        # finally, format the list of lists as nine lists (groups) of nine items (list of three lists each)
-        reformatted_list_of_lists = []
-        for group_number in range(0, 9):
-            reformatted_list_of_lists.append([])
-            for cell_number in range(0, 9):
-                location_key = [[ 1,  2,  3, 10, 11, 12, 19, 20, 21],
-                                [ 4,  5,  6, 13, 14, 15, 22, 23, 24],
-                                [ 7,  8,  9, 16, 17, 18, 25, 26, 27],
-                                [28, 29, 30, 37, 38, 39, 46, 47, 48],
-                                [31, 32, 33, 40, 41, 42, 49, 50, 51],
-                                [34, 35, 36, 43, 44, 45, 52, 53, 54],
-                                [55, 56, 57, 64, 65, 66, 73, 74, 75],
-                                [58, 59, 60, 67, 68, 69, 76, 77, 78],
-                                [61, 61, 63, 70, 71, 72, 79, 80, 81]]
-                location = (location_key[group_number][cell_number]) - 1
-                reformatted_list_of_lists[group_number].append(self.list_of_lists_by_location[location])
-        self.list_of_lists_by_location = reformatted_list_of_lists
+        # for each cell, populate the list of lists with the correct column array based on cell location
+        solution_column_array = self.solution_array_column_format()
+        for group in range(0, 9):
+            for cell in range(0, 9):
+                col_array = pick_array_by_location(group, cell, 'col', solution_column_array)
+                self.list_of_lists_by_location[group][cell].append(col_array)
 
     def __repr__(self):
         print(f'Solution({self.sol_array}')

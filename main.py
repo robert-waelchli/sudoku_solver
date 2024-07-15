@@ -47,39 +47,11 @@ def main():
     my_board = Board()
 
     # update the game board with known values provided in the solution object
-    solution.rows_to_groups_and_back()
     my_board.apply_solution(solution)
 
-    # # FOR TESTING ONLY / DELETE ME
-    # display.print_full_board_array_view(my_board)
-    # # END OF TESTING CODE
-
-    # # game board pencil marks updated using the hints provided in the solution object
-    # my_board.reduce_rows(solution)
-    # my_board.reduce_columns(solution)
-    # my_board.reduce_groups(solution)
-
-    # # FOR TESTING ONLY / DELETE ME
-    for group in range(0, 9):
-        for cell in range(0, 9):
-                print(f'Group {group + 1}, Cell: {cell + 1}, Rows: '
-                      f'{my_board.return_group(group + 1).return_cell(cell + 1).rows}')
-                print(f'Group {group + 1}, Cell: {cell + 1}, Cols: '
-                      f'{my_board.return_group(group + 1).return_cell(cell + 1).columns}')
-                print(f'Group {group + 1}, Cell: {cell + 1}, Groups: '
-                      f'{my_board.return_group(group + 1).return_cell(cell + 1).groups}')
-    print()
-    # display.print_full_board_array_view(my_board)
-    # # END OF TESTING CODE
-
-    # instantiate a counter
-    # start solver loop
-    #     instantiate a rows counter.
-    #         reduce by row.
-    #         if any singles, solve.
-    #         update counter.
-    #     instantiate a columns counter.
-    #         reduce by
+    # instantiate a change counter
+    # iterate one loop, counting the changes
+    # if no changes took place, exit the loop, else repeat
 
     # print the output game board including the pencil marks
     print()

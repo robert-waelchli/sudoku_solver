@@ -45,73 +45,20 @@ class Board:
         return group
 
     # method applies a given solution object to the game board, cell-by-cell
-    # def apply_solution(self, solution: Solution):
-    #     solution.rows_to_groups_and_back()
-    #     for group in range(1, 10):
-    #         for cell in range(1, 10):
-    #             if solution.sol_array[group - 1][cell - 1] != 0:
-    #                 self.return_group(group).return_cell(cell).solve_cell(solution.sol_array[group - 1][cell - 1])
-    #     solution.rows_to_groups_and_back()
-
-    # method applies a given solution object to the game board, cell-by-cell
     def apply_solution(self, solution: Solution):
-        array_type = ['row', 'col', 'group']
         for group in range(1, 10):
             for cell in range(1, 10):
-                for number in range(0, 3):
-                    cell_to_modify = self.return_group(group).return_cell(cell)
-                    array_string = array_type[number]
-
-                    # solve the cell if the value is already known
-                    if solution.sol_array[group - 1][cell - 1] != 0:
-                        cell_to_modify.solve_cell(solution.sol_array[group - 1][cell - 1])
-                    else:
+                cell_to_modify = self.return_group(group).return_cell(cell)
+                # solve the cell if the value is already known
+                if solution.sol_array[group - 1][cell - 1] != 0:
+                    cell_to_modify.solve_cell(solution.sol_array[group - 1][cell - 1])
+                else:
+                    # if cell value is not already know, eliminate values as possibilities in the cell object
+                    for number in range(0, 3):
+                        array_type = ['group', 'row', 'col']
+                        array_string = array_type[number]
                         cell_to_modify.eliminate_cell_vals(solution.list_of_lists_by_location[group - 1][cell - 1]
                                                            [number], array_string)
-
-    # method by which pencil marks are updated, row-by-row
-    def reduce_rows(self, solution: Solution):
-        def reducer(group_start: int, cell_start: int, array_number: int):
-            for group in range(group_start, group_start + 3):
-                for cell in range(cell_start, cell_start + 3):
-                    self.return_group(group).return_cell(cell).reduce_values(solution.sol_array[array_number])
-
-        reducer(1, 1, 0)
-        reducer(1, 4, 1)
-        reducer(1, 7, 2)
-        reducer(4, 1, 3)
-        reducer(4, 4, 4)
-        reducer(4, 7, 5)
-        reducer(7, 1, 6)
-        reducer(7, 4, 7)
-        reducer(7, 7, 8)
-
-    # method by which pencil marks are updated, column-by-column
-    def reduce_columns(self, solution: Solution):
-        def reducer(group_start: int, cell_start: int, array_number: int):
-            for group in range(group_start, group_start + 7, 3):
-                for cell in range(cell_start, cell_start + 7, 3):
-                    self.return_group(group).return_cell(cell).reduce_values(solution.sol_array[array_number])
-
-        solution.rows_to_cols_and_back()
-        reducer(1, 1, 0)
-        reducer(1, 2, 1)
-        reducer(1, 3, 2)
-        reducer(2, 1, 3)
-        reducer(2, 2, 4)
-        reducer(2, 3, 5)
-        reducer(3, 1, 6)
-        reducer(3, 2, 7)
-        reducer(3, 3, 8)
-        solution.rows_to_cols_and_back()
-
-    # method by which pencil marks are updated, group-by-group
-    def reduce_groups(self, solution: Solution):
-        solution.rows_to_groups_and_back()
-        for group in range(1, 10):
-            for cell in range(1, 10):
-                self.return_group(group).return_cell(cell).reduce_values(solution.sol_array[group - 1])
-        solution.rows_to_groups_and_back()
 
     def __repr__(self):
         print(f'Board()')
