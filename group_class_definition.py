@@ -9,17 +9,17 @@ from cell_class_definition import Cell
 
 
 class Group:
-    def __init__(self, group_location: int):    # constructor
-        self.group_location = group_location    # location attribute
-        self.cell1: Cell = Cell(1)              # instantiate cell in group position 1
-        self.cell2: Cell = Cell(2)              # instantiate cell in group position 2
-        self.cell3: Cell = Cell(3)              # instantiate cell in group position 3
-        self.cell4: Cell = Cell(4)              # instantiate cell in group position 4
-        self.cell5: Cell = Cell(5)              # instantiate cell in group position 5
-        self.cell6: Cell = Cell(6)              # instantiate cell in group position 6
-        self.cell7: Cell = Cell(7)              # instantiate cell in group position 7
-        self.cell8: Cell = Cell(8)              # instantiate cell in group position 8
-        self.cell9: Cell = Cell(9)              # instantiate cell in group position 9
+    def __init__(self, group_location: int, address_information: list):     # constructor
+        self.group_location = group_location                                # location attribute
+        self.cell1: Cell = Cell(1, address_information[0])          # instantiate cell in group position 1
+        self.cell2: Cell = Cell(2, address_information[1])          # instantiate cell in group position 2
+        self.cell3: Cell = Cell(3, address_information[2])          # instantiate cell in group position 3
+        self.cell4: Cell = Cell(4, address_information[3])          # instantiate cell in group position 4
+        self.cell5: Cell = Cell(5, address_information[4])          # instantiate cell in group position 5
+        self.cell6: Cell = Cell(6, address_information[5])          # instantiate cell in group position 6
+        self.cell7: Cell = Cell(7, address_information[6])          # instantiate cell in group position 7
+        self.cell8: Cell = Cell(8, address_information[7])          # instantiate cell in group position 8
+        self.cell9: Cell = Cell(9, address_information[8])          # instantiate cell in group position 9
 
     # method to return a cell object from a specified location.
     def return_cell(self, position: int):

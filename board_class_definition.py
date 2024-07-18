@@ -11,15 +11,37 @@ from solution_class_definition import Solution
 
 class Board:
     def __init__(self):                 # constructor
-        self.group1: Group = Group(1)   # Group in board position 1
-        self.group2: Group = Group(2)   # Group in board position 2
-        self.group3: Group = Group(3)   # Group in board position 3
-        self.group4: Group = Group(4)   # Group in board position 4
-        self.group5: Group = Group(5)   # Group in board position 5
-        self.group6: Group = Group(6)   # Group in board position 6
-        self.group7: Group = Group(7)   # Group in board position 7
-        self.group8: Group = Group(8)   # Group in board position 8
-        self.group9: Group = Group(9)   # Group in board position 9
+        def provide_cell_address(group: int, cell: int, ):
+            lookup = [
+                [[1, 1, 1], [1, 1, 2], [1, 1, 3], [1, 2, 1], [1, 2, 2], [1, 2, 3], [1, 3, 1], [1, 3, 2], [1, 3, 3]],
+                [[2, 1, 4], [2, 1, 5], [2, 1, 6], [2, 2, 4], [2, 2, 5], [2, 2, 6], [2, 3, 4], [2, 3, 5], [2, 3, 6]],
+                [[3, 1, 7], [3, 1, 8], [3, 1, 9], [3, 2, 7], [3, 2, 8], [3, 2, 9], [3, 3, 7], [3, 3, 8], [3, 3, 9]],
+                [[4, 4, 1], [4, 4, 2], [4, 4, 3], [4, 5, 1], [4, 5, 2], [4, 5, 3], [6, 6, 1], [4, 6, 2], [4, 6, 3]],
+                [[5, 4, 4], [5, 4, 5], [5, 4, 6], [5, 5, 4], [5, 5, 5], [5, 5, 6], [5, 6, 4], [5, 6, 5], [5, 6, 6]],
+                [[6, 4, 7], [6, 4, 8], [6, 4, 9], [6, 5, 7], [6, 5, 8], [6, 5, 9], [6, 6, 7], [6, 6, 8], [6, 6, 9]],
+                [[7, 7, 1], [7, 7, 2], [7, 7, 3], [7, 8, 1], [7, 8, 2], [7, 8, 3], [7, 9, 1], [7, 9, 2], [7, 9, 3]],
+                [[8, 7, 4], [8, 7, 5], [8, 7, 6], [8, 8, 4], [8, 8, 5], [8, 8, 6], [8, 9, 4], [8, 9, 5], [8, 9, 6]],
+                [[9, 7, 7], [9, 7, 8], [9, 7, 9], [9, 8, 7], [9, 8, 8], [9, 8, 9], [9, 9, 7], [9, 9, 8], [9, 9, 9]]]
+
+            return lookup[group - 1][cell - 1]
+
+        def welcome_gift(group: int):
+            birth_information = []
+            for cell in range(1, 10):
+                birth_information.append(provide_cell_address(group, cell))
+
+            return birth_information
+
+        self.group1: Group = Group(1, welcome_gift(1))     # Group in board position 1
+        self.group2: Group = Group(2, welcome_gift(2))     # Group in board position 2
+        self.group3: Group = Group(3, welcome_gift(3))     # Group in board position 3
+        self.group4: Group = Group(4, welcome_gift(4))     # Group in board position 4
+        self.group5: Group = Group(5, welcome_gift(5))     # Group in board position 5
+        self.group6: Group = Group(6, welcome_gift(6))     # Group in board position 6
+        self.group7: Group = Group(7, welcome_gift(7))     # Group in board position 1
+        self.group8: Group = Group(8, welcome_gift(8))     # Group in board position 1
+        self.group9: Group = Group(9, welcome_gift(9))     # Group in board position 1
+        self.board_summary = []                                         # List of lists, "big picture" game board
 
     # method returns the group object from the indicated position
     def return_group(self, position: int):
@@ -59,6 +81,34 @@ class Board:
                         array_string = array_type[number]
                         cell_to_modify.eliminate_cell_vals(solution.list_of_lists_by_location[group - 1][cell - 1]
                                                            [number], array_string)
+        self.board_summary = solution.sol_array
+
+    # method does four things:
+    #   1. solves any cells that can only be a single value
+    #   2. updates the group lists for the latest values
+    #   3. updates the row lists for the latest values
+    #   4. updates the column lists for the latest values
+    #   5. returns a counter showing how many changes were made during the loop
+    def single_iteration_loop(self):
+        counter = 0
+
+        # first, solve for any cells that can only be a single value, then update the board overview
+        for group in range(1, 10):
+            for cell in range(1, 10):
+                cell_in_question = self.return_group(group).return_cell(cell)
+                counter = cell_in_question.check_and_solve_if_lone_value(counter)
+                if (self.board_summary[group - 1][cell - 1] == 0) and (cell_in_question.possibles[0] == 1):
+                    self.board_summary[group - 1][cell - 1] = cell_in_question.possibles[5]
+
+        # second, update the group, row, and column lists at each location
+        for group in range(1, 10):
+            for cell in range(1, 10):
+                cell_in_question = self.return_group(group).return_cell(cell)
+                counter = cell_in_question.check_and_solve_if_lone_value(counter)
+                if (self.board_summary[group - 1][cell - 1] == 0) and (cell_in_question.possibles[0] == 1):
+                    self.board_summary[group - 1][cell - 1] = cell_in_question.possibles[5]
+
+        return counter
 
     def __repr__(self):
         print(f'Board()')
