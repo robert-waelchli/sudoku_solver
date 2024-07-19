@@ -11,7 +11,7 @@ from summary_board_definition import SummaryBoard
 
 
 class Board:
-    def __init__(self):                 # constructor
+    def __init__(self, solution_board: list):       # constructor
         def provide_cell_address(group: int, cell: int, ):
             lookup = [
                 [[1, 1, 1], [1, 1, 2], [1, 1, 3], [1, 2, 1], [1, 2, 2], [1, 2, 3], [1, 3, 1], [1, 3, 2], [1, 3, 3]],
@@ -42,7 +42,16 @@ class Board:
         self.group7: Group = Group(7, welcome_gift(7))     # Group in board position 1
         self.group8: Group = Group(8, welcome_gift(8))     # Group in board position 1
         self.group9: Group = Group(9, welcome_gift(9))     # Group in board position 1
-        self.summary = SummaryBoard()                             # List of lists, "big picture" game board
+        self.summary = SummaryBoard(solution_board)                     # List of lists, "big picture" game board
+
+        # apply the provided solution object to the game board, cell-by-cell
+        for group in range(1, 10):
+            for cell in range(1, 10):
+                cell_to_modify = self.return_group(group).return_cell(cell)
+                # solve the cell if the value is already known
+                if self.summary.summary_board[group - 1][cell - 1] != 0:
+                    cell_to_modify.solve_cell(self.summary.summary_board[group - 1][cell - 1])
+        self.single_iteration_loop()
 
     # method returns the group object from the indicated position
     def return_group(self, position: int):
@@ -66,23 +75,6 @@ class Board:
             group = self.group9
 
         return group
-
-    # method applies a given solution object to the game board, cell-by-cell
-    def apply_solution(self, solution: Solution):
-        for group in range(1, 10):
-            for cell in range(1, 10):
-                cell_to_modify = self.return_group(group).return_cell(cell)
-                # solve the cell if the value is already known
-                if solution.sol_array[group - 1][cell - 1] != 0:
-                    cell_to_modify.solve_cell(solution.sol_array[group - 1][cell - 1])
-                else:
-                    # if cell value is not already know, eliminate values as possibilities in the cell object
-                    for number in range(0, 3):
-                        array_type = ['group', 'row', 'col']
-                        array_string = array_type[number]
-                        cell_to_modify.eliminate_cell_vals(solution.list_of_lists_by_location[group - 1][cell - 1]
-                                                           [number], array_string)
-        self.summary.summary_board = solution.sol_array
 
     # method does four things:
     #   1. solves any cells that can only be a single value

@@ -43,11 +43,8 @@ def main():
     # provided in the input string.
     solution = Solution(input_board)
 
-    # instantiate a new game board object
-    my_board = Board()
-
-    # update the game board with known values provided in the solution object
-    my_board.apply_solution(solution)
+    # instantiate a new game board object (requires providing the known solution)
+    my_board = Board(solution.sol_array)
 
     # iterate one loop, counting the changes
     change_counter = my_board.single_iteration_loop()

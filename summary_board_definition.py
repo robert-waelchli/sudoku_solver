@@ -6,16 +6,8 @@
 # imports
 
 class SummaryBoard:
-    def __init__(self):                 # constructor
-        self.summary_board = [[],       # representation of the overall game board
-                              [],
-                              [],
-                              [],
-                              [],
-                              [],
-                              [],
-                              [],
-                              []]
+    def __init__(self, solution_board: list):   # constructor
+        self.summary_board = solution_board     # representation of the overall game board
 
     # method returns a summary board organized by rows (vs. groups)
     def organize_board_by_rows(self):
