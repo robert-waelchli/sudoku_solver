@@ -7,6 +7,7 @@
 # imports
 from group_class_definition import Group
 from solution_class_definition import Solution
+from summary_board_definition import SummaryBoard
 
 
 class Board:
@@ -41,7 +42,7 @@ class Board:
         self.group7: Group = Group(7, welcome_gift(7))     # Group in board position 1
         self.group8: Group = Group(8, welcome_gift(8))     # Group in board position 1
         self.group9: Group = Group(9, welcome_gift(9))     # Group in board position 1
-        self.board_summary = []                                         # List of lists, "big picture" game board
+        self.summary = SummaryBoard()                             # List of lists, "big picture" game board
 
     # method returns the group object from the indicated position
     def return_group(self, position: int):
@@ -81,7 +82,7 @@ class Board:
                         array_string = array_type[number]
                         cell_to_modify.eliminate_cell_vals(solution.list_of_lists_by_location[group - 1][cell - 1]
                                                            [number], array_string)
-        self.board_summary = solution.sol_array
+        self.summary.summary_board = solution.sol_array
 
     # method does four things:
     #   1. solves any cells that can only be a single value
@@ -97,16 +98,24 @@ class Board:
             for cell in range(1, 10):
                 cell_in_question = self.return_group(group).return_cell(cell)
                 counter = cell_in_question.check_and_solve_if_lone_value(counter)
-                if (self.board_summary[group - 1][cell - 1] == 0) and (cell_in_question.possibles[0] == 1):
-                    self.board_summary[group - 1][cell - 1] = cell_in_question.possibles[5]
+                if (self.summary.summary_board[group - 1][cell - 1] == 0) and (cell_in_question.possibles[0] == 1):
+                    self.summary.summary_board[group - 1][cell - 1] = cell_in_question.possibles[5]
 
-        # second, update the group, row, and column lists at each location
+        # second, update the group, row, and column lists at each location (counting changes)
         for group in range(1, 10):
             for cell in range(1, 10):
+                # return the specific cell to update
                 cell_in_question = self.return_group(group).return_cell(cell)
-                counter = cell_in_question.check_and_solve_if_lone_value(counter)
-                if (self.board_summary[group - 1][cell - 1] == 0) and (cell_in_question.possibles[0] == 1):
-                    self.board_summary[group - 1][cell - 1] = cell_in_question.possibles[5]
+
+                # use the latest summary board to obtain the correct group, row, and column lists for each cell
+                group_list = self.summary.query_board_by_group(cell_in_question.group_address)
+                row_list = self.summary.query_board_by_row(cell_in_question.row_address)
+                column_list = self.summary.query_board_by_col(cell_in_question.col_address)
+
+                # update the cell values to reflect changes
+                counter = cell_in_question.eliminate_cell_vals(group_list, 'group', counter)
+                counter = cell_in_question.eliminate_cell_vals(row_list, 'row', counter)
+                counter = cell_in_question.eliminate_cell_vals(column_list, 'column', counter)
 
         return counter
 

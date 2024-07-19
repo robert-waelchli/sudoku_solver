@@ -49,11 +49,6 @@ def main():
     # update the game board with known values provided in the solution object
     my_board.apply_solution(solution)
 
-    # for group in range(1, 10):
-    #     for cell in range(1, 10):
-    #         cell_in_question = my_board.return_group(group).return_cell(cell)
-    #         print(f'Group: {group} Cell: {cell} Group Address: {cell_in_question.group_address}, Row: {cell_in_question.row_address}, Col: {cell_in_question.col_address}')
-
     # iterate one loop, counting the changes
     change_counter = my_board.single_iteration_loop()
     print(f'Change Counter: {change_counter}')
