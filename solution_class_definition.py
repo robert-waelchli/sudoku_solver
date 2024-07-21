@@ -6,7 +6,6 @@
 class Solution:
     def __init__(self, input_sol: str):                             # constructor
         self.sol_array = [[], [], [], [], [], [], [], [], []]
-        self.list_of_lists_by_location = []
         self.define_solution_from_string(input_sol)
 
     # method converts an input string solution into an array of arrays
